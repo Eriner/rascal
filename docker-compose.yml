@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  rascal:
+    build: .
+    read_only: true
+    cap_drop:
+      - ALL
+    networks:
+      - rascal
+    container_name: rascal
+    volumes:
+      - ./rascal.db:/rascal.db:nodev,noexec,nosuid,rw
+    environment:
+      RASCAL_NICK: rascal
+      RASCAL_SERVER: your.irc.server.example:6697
+      RASCAL_SASL_LOGIN: rascal
+      RASCAL_SASL_PASSWORD: rascalpass
+      RASCAL_OWNER: probably_you
+      RASCAL_CHANNELS: "#rascal_test"
+      RASCAL_VERSION: alpha
+      RASCAL_QUIT_MESSAGE: "peace out"
+      RASCAL_DEBUG: true
+      RASCAL_USER_AGENT: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.81 Safari/537.36"
+      RASCAL_DB_PATH: /rascal.db
+
+networks:
+  rascal:
