@@ -1,0 +1,26 @@
+name: docker
+
+on:
+  push:
+    branch: [master]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  docker:
+    name: Docker
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+      - run: |
+          docker build -f Dockerfile -t ghcr.io/eriner/rascal:latest .
+      - uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d #v3.0.0
+        with:
+          registry: ghcr.io
+          username: eriner
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          docker push ghcr.io/eriner/rascal:latest
