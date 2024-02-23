@@ -19,9 +19,11 @@ User in channel then issues `rascal: user/some.irc.server.example` (OR `user/SIS
 
 Messages from that user will appear as user/SISE in either case. (A short-name is required during server registration)
 
+On the other server, Rascal creates a channel `#f-SISE-<channel_name>` and invites the user to the channel. Rascal will then relay messages back and forth between the channels.
+
 The list of federated servers can be listed with:
 
-`/msg rascal federated`
+`/msg rascal federated servers`
 
 which produces a list like:
 
@@ -29,6 +31,15 @@ which produces a list like:
 `SOIS some.other.irc.server`
 `...`
 
+Federated channels can be listed with:
+
+`msg rascal federated channels`
+
+`SISE #f-SISE-somechannel`
+`...`
+
+
+**Note**: the local-server implementation specifics, such as the prefix for federated channels (ex: `f-SISE-`) should be configurable by Rascal.
 
 Server operators running Rascal can publish their IRC server to the (centralized) federation discovery system with:
 
