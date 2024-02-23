@@ -129,7 +129,7 @@ func newBot() *Bot {
 		if strings.Contains(msg, "relay: ") {
 			if isFromOwner(m, irc.owner) {
 				msg := strings.Split(msg, "relay: ")[1]
-				irc.Send("RELAYMSG", target, "test/federatedircserver", ":"+msg)
+				irc.Send("RELAYMSG", target, "test/federatedircserver", msg)
 			}
 		}
 		if strings.Contains(msg, "++") {
