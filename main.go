@@ -96,7 +96,7 @@ func newBot() *Bot {
 			Nick:         nick,
 			UseTLS:       true,
 			TLSConfig:    &tls.Config{InsecureSkipVerify: true},
-			RequestCaps:  []string{"server-time", "message-tags", "account-tag", "draft/relaymsg=@"},
+			RequestCaps:  []string{"server-time", "message-tags", "account-tag", "draft/relaymsg=/"},
 			SASLLogin:    saslLogin,
 			SASLPassword: saslPassword,
 			Version:      version,
@@ -129,7 +129,7 @@ func newBot() *Bot {
 		if strings.Contains(msg, "relay: ") {
 			if isFromOwner(m, irc.owner) {
 				msg := strings.Split(msg, "relay: ")[1]
-				irc.Send("RELAYMSG", target, "relaytester", ":"+msg)
+				irc.Send("RELAYMSG", target, "test/federatedircserver", ":"+msg)
 			}
 		}
 		if strings.Contains(msg, "++") {
