@@ -96,7 +96,7 @@ func newBot() *Bot {
 			Nick:         nick,
 			UseTLS:       true,
 			TLSConfig:    &tls.Config{InsecureSkipVerify: true},
-			RequestCaps:  []string{"server-time", "message-tags", "account-tag"},
+			RequestCaps:  []string{"server-time", "message-tags", "account-tag", "draft/relaymsg=@"},
 			SASLLogin:    saslLogin,
 			SASLPassword: saslPassword,
 			Version:      version,
@@ -124,6 +124,12 @@ func newBot() *Bot {
 			if !isFromOwner(m, irc.owner) {
 				irc.sendReplyNotice(m.Nick(), msgid, "no, stalker child")
 				return
+			}
+		}
+		if strings.Contains(msg, "relay: ") {
+			if isFromOwner(m, irc.owner) {
+				msg := strings.Split(msg, "relay: ")[1]
+				irc.Send("RELAYMSG", target, "relaytester", ":"+msg)
 			}
 		}
 		if strings.Contains(msg, "++") {
